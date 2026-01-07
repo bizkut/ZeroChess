@@ -148,16 +148,19 @@ class Tournament:
         self.running = True
         
         # Create tasks for all games
-        tasks = [
-            self._play_single_game(i, openings[i])
+        self._tasks = [
+            asyncio.create_task(self._play_single_game(i, openings[i]))
             for i in range(self.num_games)
         ]
         
-        # Run with concurrency control
-        await asyncio.gather(*tasks, return_exceptions=True)
-        
-        self.running = False
-        return self.results
+        # Run with concurrency control and cancellation support
+        try:
+            await asyncio.gather(*self._tasks, return_exceptions=True)
+        except asyncio.CancelledError:
+            pass
+        finally:
+            self.running = False
+            return self.results
     
     def pause(self) -> None:
         """Pause the tournament."""
@@ -168,8 +171,13 @@ class Tournament:
         self.paused = False
     
     def stop(self) -> None:
-        """Stop the tournament."""
+        """Stop the tournament immediately."""
         self.running = False
+        # Cancel all pending tasks
+        if hasattr(self, '_tasks'):
+            for task in self._tasks:
+                if not task.done():
+                    task.cancel()
     
     def get_stats(self) -> dict:
         """Get current tournament statistics."""
