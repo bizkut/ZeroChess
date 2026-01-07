@@ -1,0 +1,31 @@
+# ZeroChess Configuration
+
+[engines]
+# Path to Stockfish binary
+stockfish_path = "stockfish"
+stockfish_threads = 4
+stockfish_hash_mb = 256
+
+# Path to LC0 binary
+lc0_path = "lc0"
+lc0_backend = "metal"  # Options: cuda, metal, opencl, blas
+lc0_threads = 2
+
+[engines.lc0_weights]
+url = "https://storage.lczero.org/files/networks-contrib/BT4-1024x15x32h-swa-6147500-policytune-332.pb.gz"
+local_path = "weights/BT4-1024x15x32h-swa-6147500-policytune-332.pb.gz"
+
+[tournament]
+num_games = 100
+concurrent_games = 4
+time_control_seconds = 60
+increment_seconds = 0.5
+use_opening_book = true
+
+[output]
+pgn_dir = "output/pgn"
+results_file = "output/results.json"
+
+[server]
+host = "0.0.0.0"
+port = 8080

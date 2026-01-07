@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroChess - LC0 vs Stockfish</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">♔</span>
+                <h1>ZeroChess</h1>
+            </div>
+            <div class="status-badge" id="status-badge">
+                <span class="status-dot"></span>
+                <span class="status-text">Ready</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Control Panel -->
+            <section class="control-panel glass-card">
+                <h2>Tournament Control</h2>
+
+                <div class="config-grid">
+                    <div class="config-item">
+                        <label for="num-games">Games</label>
+                        <input type="number" id="num-games" value="100" min="1" max="10000">
+                    </div>
+                    <div class="config-item">
+                        <label for="concurrent">Concurrent</label>
+                        <input type="number" id="concurrent" value="4" min="1" max="32">
+                    </div>
+                    <div class="config-item">
+                        <label for="time-control">Time (s)</label>
+                        <input type="number" id="time-control" value="60" min="1" max="3600">
+                    </div>
+                    <div class="config-item">
+                        <label for="increment">Increment (s)</label>
+                        <input type="number" id="increment" value="0.5" min="0" max="60" step="0.1">
+                    </div>
+                </div>
+
+                <div class="control-buttons">
+                    <button id="btn-start" class="btn btn-primary">▶ Start</button>
+                    <button id="btn-pause" class="btn btn-secondary" disabled>⏸ Pause</button>
+                    <button id="btn-stop" class="btn btn-danger" disabled>⏹ Stop</button>
+                </div>
+            </section>
+
+            <!-- Stats Dashboard -->
+            <section class="stats-dashboard">
+                <div class="stat-card glass-card">
+                    <div class="stat-label">Progress</div>
+                    <div class="stat-value">
+                        <span id="completed">0</span>/<span id="total">0</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card glass-card engine-card lc0">
+                    <div class="engine-avatar">🤖</div>
+                    <div class="stat-label" id="engine1-name">LC0</div>
+                    <div class="stat-value" id="engine1-score">0</div>
+                    <div class="stat-sublabel">wins: <span id="engine1-wins">0</span></div>
+                </div>
+
+                <div class="stat-card glass-card engine-card stockfish">
+                    <div class="engine-avatar">🐟</div>
+                    <div class="stat-label" id="engine2-name">Stockfish</div>
+                    <div class="stat-value" id="engine2-score">0</div>
+                    <div class="stat-sublabel">wins: <span id="engine2-wins">0</span></div>
+                </div>
+
+                <div class="stat-card glass-card">
+                    <div class="stat-label">Draws</div>
+                    <div class="stat-value" id="draws">0</div>
+                </div>
+
+                <div class="stat-card glass-card elo-card">
+                    <div class="stat-label">Elo Difference</div>
+                    <div class="stat-value elo" id="elo-diff">±0</div>
+                </div>
+            </section>
+
+            <!-- Active Games -->
+            <section class="active-games">
+                <h2>Live Games <span class="game-count" id="game-count">(0)</span></h2>
+                <div class="games-grid" id="games-grid">
+                    <!-- Game boards will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Chart Section -->
+            <section class="charts glass-card">
+                <h2>Win Rate Over Time</h2>
+                <div class="chart-container">
+                    <canvas id="win-chart"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span>ZeroChess v1.0</span>
+            <span id="games-per-second">0 games/min</span>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+
+</html>

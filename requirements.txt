@@ -1,0 +1,19 @@
+# ZeroChess - Core
+python-chess>=1.10.0
+toml>=0.10.2
+
+# WebSocket Server
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+websockets>=12.0
+
+# Statistics & Analysis
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Progress & CLI
+tqdm>=4.66.0
+rich>=13.7.0
+
+# HTTP for downloading weights
+httpx>=0.25.0

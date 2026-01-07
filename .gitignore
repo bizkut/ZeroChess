@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+build/
+dist/
+*.egg-info/
+
+# specific to this project
+weights/
+output/
+*.pgn
+results.json
+
+# IDE
+.vscode/
+.idea/
+
+# System
+.DS_Store
